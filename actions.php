@@ -116,6 +116,14 @@
 
 		$producto->daleteProducto($id);
 	}
+	
+
+	if (isset($_POST["eliminar_venta"])) {
+		
+		$id = $_POST["id"];
+
+		$venta->daleteVenta($id);
+	}
 
 
 	if (isset($_POST["top_stock"])) {

@@ -82,6 +82,7 @@
 		                        <th>Producto</th>
 		                        <th>Cantidad</th>
 		                        <th>Total</th>
+		                        <th>Borrar</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -307,6 +308,12 @@
 				},
 				pageLength: 5,           
 				data:data,
+				columnDefs: [ 
+					{
+						targets: 4,
+						defaultContent: "<button id='btn_borrar_producto' class='btn btn-danger' onclick='borrarVenta(this)'>Borrar</button>"
+					},
+				],
 				columns: [
 					{ data: 'id' },
 				    { data: 'nombre' },
@@ -495,6 +502,65 @@
 			.fail(function(){
 				Swal.fire(
 					'Error al eliminar el producto',
+					'',
+					'error'
+				)
+			});
+		}})
+	}
+
+
+	function borrarVenta(obj) {
+
+		let parent = obj.parentElement;
+
+		parent = parent.parentElement;
+
+		let id = parent.getElementsByTagName("td")[0].innerHTML;
+		let txtNombre = parent.getElementsByTagName("td")[1].innerHTML;
+
+		Swal.fire({
+		  title: `Seguro que quieres eliminar esta venta de ${txtNombre}?`,
+		  text: "",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText: 'Cancelar',
+		  confirmButtonText: 'Eliminar venta'
+		}).then((result) => {
+		if (result.isConfirmed) {
+
+		  	$.ajax({
+				url: 'actions.php' ,
+				type: 'POST' ,
+				dataType: 'html',
+				data: {eliminar_venta: "eliminar_venta", id:id},
+			})
+			.done(function(respuesta){
+
+				console.log(respuesta);
+				if (respuesta.trim() === "true") {
+					Swal.fire(
+					  'Venta eliminada exitosamente!',
+					  '',
+					  'success'
+					)
+					.then(function(){ 
+					   location.reload();
+					});
+
+				}else {
+					Swal.fire(
+					  'Error al eliminar la venta',
+					  '',
+					  'error'
+					)
+				}
+			})
+			.fail(function(){
+				Swal.fire(
+					'Error al eliminar la venta',
 					'',
 					'error'
 				)
