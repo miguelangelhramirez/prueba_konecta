@@ -45,6 +45,12 @@ class Venta extends Crud {
 		
 	}
 
+	public function daleteVenta($id) {
+
+		$deleteQuery = "DELETE FROM ventas WHERE id = :id";
+		$resultQuery = $this->delete($id, $deleteQuery);
+		return $resultQuery;
+	}
 }
 
 ?>
