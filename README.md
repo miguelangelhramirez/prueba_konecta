@@ -1,6 +1,6 @@
 # prueba_php
 Proyecto CRUD usando PHP orientado a objetos y JS.
-(actualización: esta version permite eliminar los datos de la tabla ventas con un botón ya que no se puede eliminar productos que tienen ventas registradas)
+(actualización: esta versión permite eliminar los datos de la tabla ventas con un botón ya que no se puede eliminar productos que tienen ventas registradas)
 
 # Estructura
 Estructura realizada en HTML
